@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Generator for Prop Trader Extension</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f8fafc;
+            color: #1e293b;
+            text-align: center;
+        }
+        .preview {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .icon-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        button {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+        .instructions {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: left;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            border: 2px solid #059669;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        p {
+            color: #64748b;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prop Trader Extension Icons</h1>
+    <p>Generate PNG icons for the Chrome extension with light theme styling</p>
+
+    <div class="preview" id="preview">
+        <!-- Icon previews will appear here -->
+    </div>
+
+    <button onclick="generateAllIcons()">Generate All Icons</button>
+
+    <div class="instructions">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Click "Generate All Icons" button above</li>
+            <li>Four PNG files will download to your Downloads folder</li>
+            <li>Move these files to the <code>icons/</code> directory of your extension</li>
+            <li>The files will be named: icon16.png, icon32.png, icon48.png, icon128.png</li>
+            <li>Your Chrome extension will now have proper icons!</li>
+        </ol>
+        
+        <h3>Icon Design:</h3>
+        <p>The icons feature a "14" representing the 14-day streak goal with progress dots at the bottom, using the extension's new light theme colors (white background with green accent).</p>
+    </div>
+
+    <script>
+        // Enhanced canvas with light theme colors
+        function createIcon(size) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Colors matching the light theme
+            const bgColor = '#ffffff';      // White background
+            const accentColor = '#059669';  // Green accent
+            const textColor = '#ffffff';    // White text on green
+            const borderColor = '#e2e8f0';  // Light border
+            
+            // Draw background
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Draw subtle border
+            ctx.strokeStyle = borderColor;
+            ctx.lineWidth = size * 0.02;
+            ctx.strokeRect(0, 0, size, size);
+            
+            // Draw main rectangle (fallback if roundRect not supported)
+            ctx.fillStyle = accentColor;
+            if (ctx.roundRect) {
+                const radius = size / 8;
+                ctx.beginPath();
+                ctx.roundRect(size * 0.1, size * 0.1, size * 0.8, size * 0.8, radius);
+                ctx.fill();
+            } else {
+                // Fallback for older browsers
+                ctx.fillRect(size * 0.1, size * 0.1, size * 0.8, size * 0.8);
+            }
+            
+            // Draw "14" text
+            ctx.fillStyle = textColor;
+            ctx.font = `bold ${size * 0.4}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('14', size * 0.5, size * 0.5);
+            
+            // Draw progress dots
+            const dotSize = Math.max(1, size * 0.03);
+            for (let i = 0; i < 3; i++) {
+                ctx.fillStyle = i === 0 ? textColor : 'rgba(255,255,255,0.4)';
+                ctx.beginPath();
+                ctx.arc(size * 0.25 + i * size * 0.25, size * 0.85, dotSize, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            return canvas;
+        }
+
+        function downloadCanvas(canvas, filename) {
+            canvas.toBlob(function(blob) {
+                if (blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    console.log(`✓ Generated: ${filename}`);
+                } else {
+                    console.error(`✗ Failed to generate: ${filename}`);
+                }
+            }, 'image/png');
+        }
+
+        function generateAllIcons() {
+            console.log('🚀 Generating PNG icons with light theme...');
+            
+            const sizes = [16, 32, 48, 128];
+            let generated = 0;
+            
+            sizes.forEach((size, index) => {
+                setTimeout(() => {
+                    const canvas = createIcon(size);
+                    downloadCanvas(canvas, `icon${size}.png`);
+                    generated++;
+                    
+                    if (generated === sizes.length) {
+                        setTimeout(() => {
+                            alert(`✅ All ${generated} light theme icons generated successfully!\n\nCheck your Downloads folder for:\n• icon16.png\n• icon32.png\n• icon48.png\n• icon128.png\n\nMove these files to your extension's icons/ directory.`);
+                        }, 500);
+                    }
+                }, index * 150); // Stagger downloads
+            });
+        }
+
+        // Create preview icons when page loads
+        window.addEventListener('load', () => {
+            const preview = document.getElementById('preview');
+            const sizes = [16, 32, 48, 128];
+            
+            sizes.forEach(size => {
+                const canvas = createIcon(size);
+                const container = document.createElement('div');
+                container.className = 'icon-preview';
+                
+                const label = document.createElement('div');
+                label.textContent = `${size}×${size}`;
+                label.style.color = '#64748b';
+                label.style.fontSize = '12px';
+                label.style.fontWeight = '500';
+                
+                container.appendChild(canvas);
+                container.appendChild(label);
+                preview.appendChild(container);
+            });
+        });
+    </script>
+</body>
+</html>
