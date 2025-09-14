@@ -172,11 +172,6 @@ class PropTraderApp {
 
   async handleCheckIn(type) {
     const today = new Date().toDateString();
-    
-    // Prevent multiple check-ins per day
-    if (this.streakData.lastCheckIn === today) {
-      return;
-    }
 
     if (type === 'followed') {
       // Mark current day as completed
