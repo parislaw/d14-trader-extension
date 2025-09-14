@@ -101,12 +101,37 @@ Built by traders, for traders. Take control of your trading discipline today.
 ### Keywords
 `trading, prop trading, discipline, habits, streak tracker, FTMO, prop firm, risk management, trading rules, accountability, evaluation period`
 
-### Permissions Justification
-**Storage Permission**: Required to save your trading rules, habit data, and progress locally on your device. No data is transmitted externally.
+### Chrome Web Store Privacy Practices Tab Requirements
 
-**Alarms Permission**: Used to automatically reset daily habit completion status at market close (4 PM EST) each day.
+**⚠️ IMPORTANT**: You must complete these on the Privacy Practices tab before publishing:
 
-**Tabs Permission**: Used exclusively to open affiliate partner links in new browser tabs when you choose to access recommended trading resources. We do not access or read any tab content.
+#### Required Justifications:
+1. **Storage Permission Justification**:
+   "Required to save user's personal trading rules, daily habit tracking data, streak progress information, and extension settings locally on the user's device using Chrome's storage API. No data is transmitted externally."
+
+2. **Alarms Permission Justification**:
+   "Required to automatically reset daily habit completion status at market close (4:00 PM EST) each trading day. Creates recurring alarm to trigger habit reset function for accurate daily tracking aligned with trading schedule."
+
+3. **Tabs Permission Justification**:
+   "Required solely to open affiliate partner links (prop firms, trading tools, educational resources) in new browser tabs when user chooses to access recommended trading resources. Extension does NOT read, access, or monitor any tab content or browsing activity."
+
+4. **Remote Code Justification**:
+   "This extension does NOT use remote code. Extension contains only local JavaScript, HTML, and CSS files. No external scripts are loaded or executed."
+
+5. **Single Purpose Description**:
+   "Help proprietary trading firm candidates maintain discipline during their critical 14-day evaluation period through streak tracking, rules management, and daily habit monitoring."
+
+#### Data Usage Compliance Certification:
+- ✅ Certify compliance with Chrome Web Store Developer Program Policies
+- ✅ Confirm Limited Use requirements adherence
+- ✅ Verify no personal data collection beyond stated functionality
+
+#### Account Requirements:
+- ✅ Provide contact email address
+- ✅ Verify contact email address
+- ✅ Enable 2-Step Verification (required)
+
+See `CHROME_WEB_STORE_PRIVACY_JUSTIFICATIONS.md` for complete text to copy into Chrome Web Store forms.
 
 ## 🚀 Pre-Submission Testing
 
