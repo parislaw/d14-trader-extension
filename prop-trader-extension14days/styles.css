@@ -365,6 +365,90 @@ body {
   margin-bottom: 8px;
   border: 1px solid #e2e8f0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  cursor: grab;
+}
+
+.habit-item.dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+  z-index: 1000;
+}
+
+.habit-item.drag-over {
+  border-color: #059669;
+  background-color: #f0fdf4;
+}
+
+.habit-item:active {
+  cursor: grabbing;
+}
+
+.habit-text {
+  flex: 1;
+  font-size: 14px;
+  color: #1e293b;
+  margin-left: 8px;
+}
+
+.habit-edit-input {
+  flex: 1;
+  font-size: 14px;
+  color: #1e293b;
+  background-color: #f8fafc;
+  border: 2px solid #059669;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-left: 8px;
+  outline: none;
+}
+
+.habit-edit-input:focus {
+  border-color: #047857;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.habit-actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.habit-actions button {
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  color: #6b7280;
+}
+
+.habit-actions button:hover {
+  background-color: #f1f5f9;
+  color: #374151;
+}
+
+.edit-habit:hover {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.save-habit:hover {
+  background-color: #f0fdf4;
+  color: #059669;
+}
+
+.cancel-habit-edit:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.delete-habit:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
 }
 
 .habit-checkbox {
