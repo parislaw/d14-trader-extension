@@ -551,6 +551,127 @@ class PropTraderApp {
     }
   }
 
+  async deleteHabit(habitId) {
+    if (confirm('Are you sure you want to delete this habit?')) {
+      this.habits = this.habits.filter(habit => habit.id !== habitId);
+      await this.saveData();
+      this.renderHabits();
+    }
+  }
+
+  startEditHabit(habitId) {
+    const habitElement = document.querySelector(`[data-id="${habitId}"].habit-item`);
+    const habitText = habitElement.querySelector('.habit-text');
+    const editInput = habitElement.querySelector('.habit-edit-input');
+    const editBtn = habitElement.querySelector('.edit-habit');
+    const saveBtn = habitElement.querySelector('.save-habit');
+    const cancelBtn = habitElement.querySelector('.cancel-habit-edit');
+
+    // Hide text and edit button, show input and save/cancel buttons
+    habitText.classList.add('hidden');
+    editBtn.classList.add('hidden');
+    editInput.classList.remove('hidden');
+    saveBtn.classList.remove('hidden');
+    cancelBtn.classList.remove('hidden');
+
+    // Focus and select text in input
+    editInput.focus();
+    editInput.select();
+
+    // Add Enter key listener for quick save
+    editInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        this.saveEditHabit(habitId);
+      } else if (e.key === 'Escape') {
+        this.cancelEditHabit(habitId);
+      }
+    });
+  }
+
+  async saveEditHabit(habitId) {
+    const habitElement = document.querySelector(`[data-id="${habitId}"].habit-item`);
+    const editInput = habitElement.querySelector('.habit-edit-input');
+    const newText = editInput.value.trim();
+
+    if (newText && newText.length > 0) {
+      // Update the habit in the data
+      const habit = this.habits.find(h => h.id === habitId);
+      if (habit) {
+        habit.text = newText;
+        await this.saveData();
+        this.renderHabits();
+      }
+    } else {
+      this.cancelEditHabit(habitId);
+    }
+  }
+
+  cancelEditHabit(habitId) {
+    const habitElement = document.querySelector(`[data-id="${habitId}"].habit-item`);
+    const habitText = habitElement.querySelector('.habit-text');
+    const editInput = habitElement.querySelector('.habit-edit-input');
+    const editBtn = habitElement.querySelector('.edit-habit');
+    const saveBtn = habitElement.querySelector('.save-habit');
+    const cancelBtn = habitElement.querySelector('.cancel-habit-edit');
+
+    // Reset input value to original
+    const habit = this.habits.find(h => h.id === habitId);
+    if (habit) {
+      editInput.value = habit.text;
+    }
+
+    // Show text and edit button, hide input and save/cancel buttons
+    habitText.classList.remove('hidden');
+    editBtn.classList.remove('hidden');
+    editInput.classList.add('hidden');
+    saveBtn.classList.add('hidden');
+    cancelBtn.classList.add('hidden');
+  }
+
+  addHabitDragListeners(element) {
+    element.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', element.dataset.index);
+      element.classList.add('dragging');
+    });
+
+    element.addEventListener('dragend', (e) => {
+      element.classList.remove('dragging');
+    });
+
+    element.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const draggingElement = document.querySelector('.habit-item.dragging');
+      if (draggingElement !== element) {
+        element.classList.add('drag-over');
+      }
+    });
+
+    element.addEventListener('dragleave', (e) => {
+      element.classList.remove('drag-over');
+    });
+
+    element.addEventListener('drop', (e) => {
+      e.preventDefault();
+      element.classList.remove('drag-over');
+
+      const draggedIndex = parseInt(e.dataTransfer.getData('text/plain'));
+      const targetIndex = parseInt(element.dataset.index);
+
+      if (draggedIndex !== targetIndex) {
+        this.reorderHabits(draggedIndex, targetIndex);
+      }
+    });
+  }
+
+  async reorderHabits(fromIndex, toIndex) {
+    const habitToMove = this.habits[fromIndex];
+    this.habits.splice(fromIndex, 1);
+    this.habits.splice(toIndex, 0, habitToMove);
+
+    await this.saveData();
+    this.renderHabits();
+  }
+
   // Daily Reset Logic
   checkDailyReset() {
     const today = new Date().toDateString();
