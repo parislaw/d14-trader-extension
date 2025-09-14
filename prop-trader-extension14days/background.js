@@ -3,7 +3,7 @@
 // Extension installation handler
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === 'install') {
-    console.log('Prop Trader Discipline Extension installed');
+    // Extension installed and initialized
 
     // Set up default data structure
     const defaultData = {
@@ -84,12 +84,12 @@ async function handleDailyReset() {
       // Save back to storage
       await chrome.storage.sync.set({ habits: resetHabits });
     }
-    
-    console.log('Daily reset completed');
+
+    // Daily reset completed successfully
   } catch (error) {
     console.error('Error during daily reset:', error);
   }
 }
 
 
-console.log('Prop Trader Discipline background service worker loaded');
+// Background service worker loaded and ready
