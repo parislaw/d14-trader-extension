@@ -5,7 +5,8 @@
   "description": "Help traders overcome the 14 day risk or ruin period by maintaining their discipline.",
   "permissions": [
     "storage",
-    "alarms"
+    "alarms",
+    "tabs"
   ],
   "action": {
     "default_popup": "popup.html",
