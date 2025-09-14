@@ -351,20 +351,9 @@ body {
   color: #dc2626;
 }
 
-.delete-rule {
-  background: none;
-  border: none;
-  color: #64748b;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
 .delete-rule:hover {
-  color: #dc2626;
   background-color: #fef2f2;
+  color: #dc2626;
 }
 
 .habit-item {
