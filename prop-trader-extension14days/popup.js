@@ -137,6 +137,9 @@ class PropTraderApp {
     document.getElementById('overlay').addEventListener('click', () => {
       this.hideViolationModal();
     });
+
+    // Resources tab functionality
+    this.setupResourceEventListeners();
   }
 
   // Streak Management
