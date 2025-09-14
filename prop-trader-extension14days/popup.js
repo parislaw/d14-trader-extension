@@ -486,21 +486,59 @@ class PropTraderApp {
   renderHabits() {
     const habitsList = document.getElementById('habits-list');
     habitsList.innerHTML = '';
-    
-    this.habits.forEach(habit => {
+
+    this.habits.forEach((habit, index) => {
       const habitElement = document.createElement('div');
       habitElement.className = 'habit-item';
+      habitElement.draggable = true;
+      habitElement.dataset.id = habit.id;
+      habitElement.dataset.index = index;
       habitElement.innerHTML = `
+        <span class="drag-handle">≡</span>
         <input type="checkbox" id="${habit.id}" class="habit-checkbox" ${habit.completed ? 'checked' : ''}>
-        <label for="${habit.id}">${habit.text}</label>
+        <label for="${habit.id}" class="habit-text" data-id="${habit.id}">${habit.text}</label>
+        <input type="text" class="habit-edit-input hidden" data-id="${habit.id}" value="${habit.text}" maxlength="80">
+        <div class="habit-actions">
+          <button class="edit-habit" data-id="${habit.id}" title="Edit habit">✏️</button>
+          <button class="save-habit hidden" data-id="${habit.id}" title="Save">✓</button>
+          <button class="cancel-habit-edit hidden" data-id="${habit.id}" title="Cancel">×</button>
+          <button class="delete-habit" data-id="${habit.id}" title="Delete habit">🗑️</button>
+        </div>
       `;
-      
+
       // Add checkbox functionality
       const checkbox = habitElement.querySelector('.habit-checkbox');
       checkbox.addEventListener('change', () => {
         this.toggleHabit(habit.id, checkbox.checked);
       });
-      
+
+      // Add edit functionality
+      habitElement.querySelector('.edit-habit').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.startEditHabit(habit.id);
+      });
+
+      // Add save functionality
+      habitElement.querySelector('.save-habit').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.saveEditHabit(habit.id);
+      });
+
+      // Add cancel functionality
+      habitElement.querySelector('.cancel-habit-edit').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.cancelEditHabit(habit.id);
+      });
+
+      // Add delete functionality
+      habitElement.querySelector('.delete-habit').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.deleteHabit(habit.id);
+      });
+
+      // Add drag event listeners
+      this.addHabitDragListeners(habitElement);
+
       habitsList.appendChild(habitElement);
     });
   }
