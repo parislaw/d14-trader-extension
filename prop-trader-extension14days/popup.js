@@ -370,17 +370,95 @@ class PropTraderApp {
   checkDailyReset() {
     const today = new Date().toDateString();
     const lastReset = localStorage.getItem('lastDailyReset');
-    
+
     if (lastReset !== today) {
       // Reset habits completion status
       this.habits.forEach(habit => {
         habit.completed = false;
       });
-      
+
       localStorage.setItem('lastDailyReset', today);
       this.saveData();
       this.renderHabits();
     }
+  }
+
+  // Resources Tab Management
+  setupResourceEventListeners() {
+    // Add click listeners to all resource cards
+    const resourceCards = document.querySelectorAll('.resource-card');
+    resourceCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const url = card.dataset.url;
+        const category = card.dataset.category;
+        const name = card.querySelector('.resource-name').textContent;
+
+        this.handleResourceClick(url, category, name);
+      });
+    });
+  }
+
+  async handleResourceClick(url, category, resourceName) {
+    try {
+      // Track the click for analytics
+      this.trackResourceClick(category, resourceName);
+
+      // Open the affiliate link in a new tab
+      chrome.tabs.create({ url: url });
+    } catch (error) {
+      console.error('Error opening resource link:', error);
+      // Fallback: try to open with window.open
+      window.open(url, '_blank');
+    }
+  }
+
+  trackResourceClick(category, resourceName) {
+    // Track click events for analytics
+    const clickData = {
+      timestamp: new Date().toISOString(),
+      category: category,
+      resource: resourceName,
+      userAgent: navigator.userAgent
+    };
+
+    // Store in local storage for analytics (could be enhanced with external analytics)
+    const existingClicks = JSON.parse(localStorage.getItem('resourceClicks') || '[]');
+    existingClicks.push(clickData);
+
+    // Keep only last 100 clicks to manage storage
+    if (existingClicks.length > 100) {
+      existingClicks.shift();
+    }
+
+    localStorage.setItem('resourceClicks', JSON.stringify(existingClicks));
+
+    // Log for debugging
+    console.log('Resource clicked:', clickData);
+  }
+
+  // Get analytics data (for potential future use)
+  getResourceAnalytics() {
+    const clicks = JSON.parse(localStorage.getItem('resourceClicks') || '[]');
+
+    // Aggregate by category
+    const analytics = {
+      totalClicks: clicks.length,
+      clicksByCategory: {},
+      clicksByResource: {},
+      recentClicks: clicks.slice(-10)
+    };
+
+    clicks.forEach(click => {
+      // Count by category
+      analytics.clicksByCategory[click.category] =
+        (analytics.clicksByCategory[click.category] || 0) + 1;
+
+      // Count by resource
+      analytics.clicksByResource[click.resource] =
+        (analytics.clicksByResource[click.resource] || 0) + 1;
+    });
+
+    return analytics;
   }
 }
 
