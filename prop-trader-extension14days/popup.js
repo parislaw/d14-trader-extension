@@ -333,7 +333,122 @@ class PropTraderApp {
   }
 
   async deleteRule(ruleId) {
-    this.rules = this.rules.filter(rule => rule.id !== ruleId);
+    if (confirm('Are you sure you want to delete this rule?')) {
+      this.rules = this.rules.filter(rule => rule.id !== ruleId);
+      await this.saveData();
+      this.renderRules();
+    }
+  }
+
+  startEditRule(ruleId) {
+    const ruleElement = document.querySelector(`[data-id="${ruleId}"]`);
+    const ruleText = ruleElement.querySelector('.rule-text');
+    const editInput = ruleElement.querySelector('.rule-edit-input');
+    const editBtn = ruleElement.querySelector('.edit-rule');
+    const saveBtn = ruleElement.querySelector('.save-rule');
+    const cancelBtn = ruleElement.querySelector('.cancel-edit');
+
+    // Hide text and edit button, show input and save/cancel buttons
+    ruleText.classList.add('hidden');
+    editBtn.classList.add('hidden');
+    editInput.classList.remove('hidden');
+    saveBtn.classList.remove('hidden');
+    cancelBtn.classList.remove('hidden');
+
+    // Focus and select text in input
+    editInput.focus();
+    editInput.select();
+
+    // Add Enter key listener for quick save
+    editInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        this.saveEditRule(ruleId);
+      } else if (e.key === 'Escape') {
+        this.cancelEditRule(ruleId);
+      }
+    });
+  }
+
+  async saveEditRule(ruleId) {
+    const ruleElement = document.querySelector(`[data-id="${ruleId}"]`);
+    const editInput = ruleElement.querySelector('.rule-edit-input');
+    const newText = editInput.value.trim();
+
+    if (newText && newText.length > 0) {
+      // Update the rule in the data
+      const rule = this.rules.find(r => r.id === ruleId);
+      if (rule) {
+        rule.text = newText;
+        await this.saveData();
+        this.renderRules();
+      }
+    } else {
+      this.cancelEditRule(ruleId);
+    }
+  }
+
+  cancelEditRule(ruleId) {
+    const ruleElement = document.querySelector(`[data-id="${ruleId}"]`);
+    const ruleText = ruleElement.querySelector('.rule-text');
+    const editInput = ruleElement.querySelector('.rule-edit-input');
+    const editBtn = ruleElement.querySelector('.edit-rule');
+    const saveBtn = ruleElement.querySelector('.save-rule');
+    const cancelBtn = ruleElement.querySelector('.cancel-edit');
+
+    // Reset input value to original
+    const rule = this.rules.find(r => r.id === ruleId);
+    if (rule) {
+      editInput.value = rule.text;
+    }
+
+    // Show text and edit button, hide input and save/cancel buttons
+    ruleText.classList.remove('hidden');
+    editBtn.classList.remove('hidden');
+    editInput.classList.add('hidden');
+    saveBtn.classList.add('hidden');
+    cancelBtn.classList.add('hidden');
+  }
+
+  addRuleDragListeners(element) {
+    element.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', element.dataset.index);
+      element.classList.add('dragging');
+    });
+
+    element.addEventListener('dragend', (e) => {
+      element.classList.remove('dragging');
+    });
+
+    element.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const draggingElement = document.querySelector('.rule-item.dragging');
+      if (draggingElement !== element) {
+        element.classList.add('drag-over');
+      }
+    });
+
+    element.addEventListener('dragleave', (e) => {
+      element.classList.remove('drag-over');
+    });
+
+    element.addEventListener('drop', (e) => {
+      e.preventDefault();
+      element.classList.remove('drag-over');
+
+      const draggedIndex = parseInt(e.dataTransfer.getData('text/plain'));
+      const targetIndex = parseInt(element.dataset.index);
+
+      if (draggedIndex !== targetIndex) {
+        this.reorderRules(draggedIndex, targetIndex);
+      }
+    });
+  }
+
+  async reorderRules(fromIndex, toIndex) {
+    const ruleToMove = this.rules[fromIndex];
+    this.rules.splice(fromIndex, 1);
+    this.rules.splice(toIndex, 0, ruleToMove);
+
     await this.saveData();
     this.renderRules();
   }
