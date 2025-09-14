@@ -212,7 +212,7 @@ class PropTraderApp {
         this.streakData.streakDays.fill('incomplete');
 
         // Log violation (could be expanded to store violation history)
-        console.log('Violation logged:', violationText);
+        // Violation logged silently for privacy
       }
 
       this.hideViolationModal();
