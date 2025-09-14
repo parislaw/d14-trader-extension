@@ -188,18 +188,30 @@ class PropTraderApp {
       // Mark current day as violated and reset streak
       const violationText = document.getElementById('violation-text').value.trim();
       if (violationText) {
-        if (this.streakData.currentStreak < 14) {
-          this.streakData.streakDays[this.streakData.currentStreak] = 'violated';
+        // Check if we already checked in today as 'followed'
+        const hasCheckedInToday = this.streakData.lastCheckIn === today;
+
+        if (hasCheckedInToday) {
+          // Override previous completion - find the most recent completed day and mark as violated
+          const lastCompletedIndex = this.streakData.streakDays.lastIndexOf('completed');
+          if (lastCompletedIndex !== -1) {
+            this.streakData.streakDays[lastCompletedIndex] = 'violated';
+          }
+        } else {
+          // Normal violation on unchecked day
+          if (this.streakData.currentStreak < 14) {
+            this.streakData.streakDays[this.streakData.currentStreak] = 'violated';
+          }
         }
-        
+
         // Reset streak
         this.streakData.currentStreak = 0;
         this.streakData.streakDays.fill('incomplete');
-        
+
         // Log violation (could be expanded to store violation history)
         console.log('Violation logged:', violationText);
       }
-      
+
       this.hideViolationModal();
     }
 
