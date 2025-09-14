@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D14 Trader Extension</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="app-title">D14 Trader Extension</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
+      <button class="nav-btn" data-tab="rules">Rules</button>
+      <button class="nav-btn" data-tab="habits">Habits</button>
+      <button class="nav-btn" data-tab="resources">Resources</button>
+    </nav>
+
+    <!-- Dashboard Tab -->
+    <div id="dashboard" class="tab-content active">
+      <!-- 14-Day Goal Section -->
+      <section class="streak-section">
+        <div class="section-header">
+          <h2>14-Day Goal</h2>
+          <span class="longest-streak">Longest: <span id="longest-count">0</span></span>
+        </div>
+        
+        <!-- Calendar Grid -->
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Days 1-14 will be dynamically generated -->
+        </div>
+
+        <!-- Current Streak -->
+        <div class="current-streak">
+          <span class="streak-number" id="current-streak">0</span>
+          <span class="streak-label">Days</span>
+          <div class="streak-sublabel">CURRENT STREAK</div>
+        </div>
+      </section>
+
+      <!-- Daily Check-in Section -->
+      <section class="checkin-section">
+        <h2>Daily Check-in</h2>
+        <div class="checkin-buttons">
+          <button class="checkin-btn success" id="followed-rules">
+            <span class="check-icon">✓</span>
+            Followed My Rules
+          </button>
+          <button class="checkin-btn danger" id="violated-rule">
+            <span class="x-icon">✕</span>
+            Violated a Rule
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Rules Tab -->
+    <div id="rules" class="tab-content">
+      <div class="section-header">
+        <h2>My Trading Rules</h2>
+        <button class="add-btn" id="add-rule-btn">Add Rule</button>
+      </div>
+      
+      <div class="empty-state" id="rules-empty">
+        <p>Your rulebook is empty.</p>
+        <p class="empty-subtitle">Add your core trading principles to begin.</p>
+      </div>
+
+      <div class="rules-list" id="rules-list">
+        <!-- Rules will be dynamically added here -->
+      </div>
+
+      <div class="rule-input-section hidden" id="rule-input-section">
+        <input type="text" id="rule-input" placeholder="e.g., No trades after 2 losses" maxlength="100">
+        <div class="input-buttons">
+          <button class="save-btn" id="save-rule">Add Rule</button>
+          <button class="cancel-btn" id="cancel-rule">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Habits Tab -->
+    <div id="habits" class="tab-content">
+      <div class="section-header">
+        <h2>Daily Pre/Post-Market Habits</h2>
+        <button class="add-btn" id="add-habit-btn">Add Habit</button>
+      </div>
+
+      <div class="habits-list" id="habits-list">
+        <!-- Default habits will be shown here -->
+        <div class="habit-item">
+          <input type="checkbox" id="habit-1" class="habit-checkbox">
+          <label for="habit-1">Review Trading Plan</label>
+        </div>
+        <div class="habit-item">
+          <input type="checkbox" id="habit-2" class="habit-checkbox">
+          <label for="habit-2">Daily Profiler 4 Steps</label>
+        </div>
+        <div class="habit-item">
+          <input type="checkbox" id="habit-3" class="habit-checkbox">
+          <label for="habit-3">Make Trading Ideas for day</label>
+        </div>
+      </div>
+
+      <div class="templates-section">
+        <h3>Templates</h3>
+        <button class="template-btn disabled" id="save-template" disabled>Save current as template</button>
+        <p class="template-note">🚧 Templates feature coming soon! Create and save custom habit templates.</p>
+      </div>
+
+      <div class="habit-input-section hidden" id="habit-input-section">
+        <input type="text" id="habit-input" placeholder="e.g., Review yesterday's trades" maxlength="80">
+        <div class="input-buttons">
+          <button class="save-btn" id="save-habit">Add Habit</button>
+          <button class="cancel-btn" id="cancel-habit">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resources Tab -->
+    <div id="resources" class="tab-content">
+      <div class="section-header">
+        <h2>Trading Resources</h2>
+        <span class="affiliate-disclosure">Partner Links</span>
+      </div>
+
+      <!-- Prop Firm Challenges -->
+      <section class="resources-section">
+        <h3 class="section-title">🏆 Prop Firm Challenges</h3>
+        <div class="resources-grid">
+          <div class="resource-card" data-url="https://go.prslw.com/AquaFutures" data-category="prop-firm">
+            <div class="resource-content">
+              <div class="resource-header">
+                <span class="resource-name">Aqua Futures</span>
+                <span class="deal-badge sale">60% Off</span>
+              </div>
+              <p class="resource-description">Use coupon code SURGE for 60% off</p>
+              <div class="resource-features">
+                <span class="feature">• Professional Prop Firm</span>
+                <span class="feature">• Up to $300k Funding</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="resource-card" data-url="https://go.prslw.com/AlphaFutures" data-category="prop-firm">
+            <div class="resource-content">
+              <div class="resource-header">
+                <span class="resource-name">Alpha Futures</span>
+                <span class="deal-badge">Recommended</span>
+              </div>
+              <p class="resource-description">Professional prop trading firm - Up to $300k funding</p>
+              <div class="resource-features">
+                <span class="feature">• Fast Evaluation</span>
+                <span class="feature">• Competitive Splits</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Trading Communities -->
+      <section class="resources-section">
+        <h3 class="section-title">👥 Trading Communities</h3>
+        <div class="resources-grid">
+          <div class="resource-card" data-url="https://go.prslw.com/ptg" data-category="community">
+            <div class="resource-content">
+              <div class="resource-header">
+                <span class="resource-name">Pack Trading Bootcamp</span>
+                <span class="deal-badge">Course</span>
+              </div>
+              <p class="resource-description">Comprehensive trading education with community</p>
+              <div class="resource-features">
+                <span class="feature">• Complete Trading System</span>
+                <span class="feature">• Live Community Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Affiliate Disclosure -->
+      <div class="affiliate-notice">
+        <p class="disclaimer">
+          💡 <strong>Disclosure:</strong> This extension contains affiliate links. We may earn a commission when you sign up through our links at no extra cost to you. We only recommend services we believe will help your trading success.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Violation Modal -->
+  <div class="modal hidden" id="violation-modal">
+    <div class="modal-content">
+      <h3 class="modal-title">Log Violation</h3>
+      <p class="modal-subtitle">Be honest. What happened? This helps you learn and improve.</p>
+      <textarea 
+        id="violation-text" 
+        placeholder="e.g., I revenge-traded after a big loss."
+        maxlength="200"
+      ></textarea>
+      <div class="modal-buttons">
+        <button class="cancel-btn" id="cancel-violation">Cancel</button>
+        <button class="danger-btn" id="reset-streak">Reset Streak</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay hidden" id="overlay"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
