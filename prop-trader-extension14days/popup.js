@@ -738,8 +738,7 @@ class PropTraderApp {
 
     localStorage.setItem('resourceClicks', JSON.stringify(existingClicks));
 
-    // Log for debugging
-    console.log('Resource clicked:', clickData);
+    // Resource click tracked silently
   }
 
   // Get analytics data (for potential future use)
