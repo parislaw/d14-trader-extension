@@ -283,19 +283,51 @@ class PropTraderApp {
     emptyState.classList.add('hidden');
     rulesList.innerHTML = '';
     
-    this.rules.forEach(rule => {
+    this.rules.forEach((rule, index) => {
       const ruleElement = document.createElement('div');
       ruleElement.className = 'rule-item';
+      ruleElement.draggable = true;
+      ruleElement.dataset.id = rule.id;
+      ruleElement.dataset.index = index;
       ruleElement.innerHTML = `
-        <span class="rule-text">${rule.text}</span>
-        <button class="delete-rule" data-id="${rule.id}">×</button>
+        <span class="drag-handle">≡</span>
+        <span class="rule-text" data-id="${rule.id}">${rule.text}</span>
+        <input type="text" class="rule-edit-input hidden" data-id="${rule.id}" value="${rule.text}" maxlength="100">
+        <div class="rule-actions">
+          <button class="edit-rule" data-id="${rule.id}" title="Edit rule">✏️</button>
+          <button class="save-rule hidden" data-id="${rule.id}" title="Save">✓</button>
+          <button class="cancel-edit hidden" data-id="${rule.id}" title="Cancel">×</button>
+          <button class="delete-rule" data-id="${rule.id}" title="Delete rule">🗑️</button>
+        </div>
       `;
-      
+
+      // Add edit functionality
+      ruleElement.querySelector('.edit-rule').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.startEditRule(rule.id);
+      });
+
+      // Add save functionality
+      ruleElement.querySelector('.save-rule').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.saveEditRule(rule.id);
+      });
+
+      // Add cancel functionality
+      ruleElement.querySelector('.cancel-edit').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.cancelEditRule(rule.id);
+      });
+
       // Add delete functionality
-      ruleElement.querySelector('.delete-rule').addEventListener('click', () => {
+      ruleElement.querySelector('.delete-rule').addEventListener('click', (e) => {
+        e.stopPropagation();
         this.deleteRule(rule.id);
       });
-      
+
+      // Add drag event listeners
+      this.addRuleDragListeners(ruleElement);
+
       rulesList.appendChild(ruleElement);
     });
   }
