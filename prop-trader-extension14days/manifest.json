@@ -1,8 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "D14 Trader Extension",
+  "name": "D14 Trader Extension - Prop Trading Discipline Tracker",
+  "short_name": "D14 Trader",
   "version": "1.0.0",
-  "description": "Help traders overcome the 14 day risk or ruin period by maintaining their discipline.",
+  "description": "Master your prop trading discipline with streak tracking, rules management, and daily habits. Built specifically for the critical 14-day evaluation period that can make or break your trading career.",
+  "author": "D14 Trader Team",
+  "homepage_url": "https://github.com/parislaw/d14-trader-extension",
   "permissions": [
     "storage",
     "alarms",
@@ -10,7 +13,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "D14 Trader Extension",
+    "default_title": "D14 Trader Extension - Track Your Trading Discipline",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",
@@ -26,5 +29,9 @@
   },
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "minimum_chrome_version": "88"
 }
