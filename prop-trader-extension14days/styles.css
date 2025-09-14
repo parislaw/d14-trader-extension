@@ -259,6 +259,23 @@ body {
   margin-bottom: 8px;
   border: 1px solid #e2e8f0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  cursor: grab;
+}
+
+.rule-item.dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+  z-index: 1000;
+}
+
+.rule-item.drag-over {
+  border-color: #059669;
+  background-color: #f0fdf4;
+}
+
+.rule-item:active {
+  cursor: grabbing;
 }
 
 .rule-text {
