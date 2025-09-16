@@ -53,6 +53,10 @@ class PropTraderApp {
       if (result.habits) {
         this.habits = result.habits;
       }
+
+      if (result.settings) {
+        this.settings = { ...this.settings, ...result.settings };
+      }
     } catch (error) {
       console.error('Error loading data:', error);
     }
