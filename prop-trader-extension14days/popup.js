@@ -730,6 +730,11 @@ class PropTraderApp {
   }
 
   trackResourceClick(category, resourceName) {
+    // Only track if analytics is enabled
+    if (!this.settings.analyticsEnabled) {
+      return;
+    }
+
     // Track click events for analytics
     const clickData = {
       timestamp: new Date().toISOString(),
