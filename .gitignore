@@ -50,3 +50,8 @@ test-*.html
 *-summary.html
 affiliate-links-implementation-summary.html
 enhanced-crud-functionality-summary.html
+
+# Internal documentation and Chrome Store files
+CHROME_STORE_SUBMISSION_GUIDE.md
+CHROME_WEB_STORE_PRIVACY_JUSTIFICATIONS.md
+PRD.md
