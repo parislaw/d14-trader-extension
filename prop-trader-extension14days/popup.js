@@ -31,6 +31,7 @@ class PropTraderApp {
     this.updateStreakDisplay();
     this.renderRules();
     this.renderHabits();
+    this.renderSettings();
     this.checkDailyReset();
   }
 
