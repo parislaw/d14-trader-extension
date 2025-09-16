@@ -150,6 +150,9 @@ class PropTraderApp {
 
     // Resources tab functionality
     this.setupResourceEventListeners();
+
+    // Settings tab functionality
+    this.setupSettingsEventListeners();
   }
 
   // Streak Management
