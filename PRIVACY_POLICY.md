@@ -46,12 +46,23 @@ We do **NOT** collect, store, or transmit any personal information such as:
 ### No Data Sharing
 We do **NOT** share, sell, or transmit any of your data to third parties. All data remains on your local device.
 
-### Affiliate Links
+### Affiliate Links and Click Tracking
 The extension contains affiliate links to trading education and services. When you click these links:
 - A new tab opens to the partner website
 - We may receive a commission if you make a purchase
+- **Click Analytics**: We locally track basic click data (timestamp, resource name, category) for internal analytics purposes
+- This tracking data remains on your device and is never transmitted externally
+- You can opt-out of click tracking in the extension settings
 - No personal data is shared with affiliate partners
 - Your interaction with affiliate sites is subject to their privacy policies
+
+### Analytics and Usage Tracking
+The extension includes optional analytics features:
+- **Affiliate Link Click Tracking**: Records when you click partner resource links
+- **Data Stored**: Timestamp, resource name, category, and browser information
+- **Local Storage Only**: All tracking data remains on your device
+- **User Control**: You can disable tracking at any time in extension settings
+- **No External Transmission**: Analytics data never leaves your device
 
 ## Data Security
 
