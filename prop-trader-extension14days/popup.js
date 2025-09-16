@@ -781,6 +781,107 @@ class PropTraderApp {
 
     return analytics;
   }
+
+  // Settings Management
+  setupSettingsEventListeners() {
+    // Analytics toggle
+    const analyticsToggle = document.getElementById('analytics-enabled');
+    if (analyticsToggle) {
+      analyticsToggle.addEventListener('change', async () => {
+        this.settings.analyticsEnabled = analyticsToggle.checked;
+        await this.saveData();
+      });
+    }
+
+    // Clear analytics data
+    const clearAnalyticsBtn = document.getElementById('clear-analytics');
+    if (clearAnalyticsBtn) {
+      clearAnalyticsBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to clear all analytics data?')) {
+          localStorage.removeItem('resourceClicks');
+          alert('Analytics data cleared successfully.');
+        }
+      });
+    }
+
+    // Clear all data
+    const clearAllDataBtn = document.getElementById('clear-all-data');
+    if (clearAllDataBtn) {
+      clearAllDataBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to clear ALL extension data? This cannot be undone.')) {
+          this.clearAllExtensionData();
+        }
+      });
+    }
+
+    // Privacy policy links
+    const privacyPolicyLinks = document.querySelectorAll('#privacy-policy-link, #view-privacy-policy');
+    privacyPolicyLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.openPrivacyPolicy();
+      });
+    });
+
+    // Settings navigation link
+    const settingsLink = document.getElementById('settings-link');
+    if (settingsLink) {
+      settingsLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.switchToTab('settings');
+      });
+    }
+  }
+
+  renderSettings() {
+    // Update analytics toggle state
+    const analyticsToggle = document.getElementById('analytics-enabled');
+    if (analyticsToggle) {
+      analyticsToggle.checked = this.settings.analyticsEnabled;
+    }
+  }
+
+  switchToTab(tabName) {
+    // Update active nav button
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.tab === tabName) {
+        btn.classList.add('active');
+      }
+    });
+
+    // Update active tab content
+    document.querySelectorAll('.tab-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    document.getElementById(tabName).classList.add('active');
+
+    this.currentTab = tabName;
+  }
+
+  async clearAllExtensionData() {
+    try {
+      // Clear Chrome storage
+      await chrome.storage.sync.clear();
+
+      // Clear local storage analytics data
+      localStorage.removeItem('resourceClicks');
+      localStorage.removeItem('lastDailyReset');
+
+      alert('All extension data has been cleared. The extension will reload with default settings.');
+
+      // Reload the popup to show default state
+      location.reload();
+    } catch (error) {
+      console.error('Error clearing extension data:', error);
+      alert('Error clearing data. Please try again.');
+    }
+  }
+
+  openPrivacyPolicy() {
+    const privacyPolicyUrl = 'https://raw.githubusercontent.com/parislaw/d14-trader-extension/main/PRIVACY_POLICY.md';
+    window.open(privacyPolicyUrl, '_blank');
+  }
 }
 
 // Initialize the app when the popup loads
