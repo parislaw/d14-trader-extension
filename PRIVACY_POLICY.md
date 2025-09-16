@@ -40,11 +40,6 @@ We do **NOT** collect, store, or transmit any personal information such as:
 - Used to automatically reset daily habit completion status at market close (4 PM EST)
 - No data is collected or transmitted
 
-#### Tabs Permission
-- **Limited Use**: Used solely to open affiliate partner links in new browser tabs
-- We do NOT access, read, or collect any information from your browser tabs
-- We do NOT track your browsing activity
-- We do NOT access the content of any websites you visit
 
 ## Data Sharing and Third Parties
 
