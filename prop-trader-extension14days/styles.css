@@ -9,8 +9,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   width: 420px;
   height: 600px;
-  background-color: #ffffff;
-  color: #1e293b;
+  background-color: #1f2937;
+  color: #f3f4f6;
   overflow: hidden;
 }
 
@@ -19,49 +19,69 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
 }
 
 /* Header */
 .header {
   padding: 16px 20px 12px;
-  border-bottom: 1px solid #e2e8f0;
-  background-color: #ffffff;
+  border-bottom: 1px solid #374151;
+  background-color: #1f2937;
 }
 
 .app-title {
   font-size: 18px;
   font-weight: 600;
-  color: #1e293b;
+  color: #f3f4f6;
 }
 
 /* Navigation */
 .nav {
   display: flex;
-  padding: 0 20px;
-  border-bottom: 1px solid #e2e8f0;
-  background-color: #ffffff;
+  padding: 0 12px;
+  border-bottom: 1px solid #374151;
+  background-color: #1f2937;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-btn {
   background: none;
   border: none;
-  color: #64748b;
-  padding: 12px 16px;
-  font-size: 14px;
+  color: #9ca3af;
+  padding: 12px 8px;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: all 0.2s;
+  min-width: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.nav-btn::before {
+  content: attr(data-icon);
+  font-size: 16px;
+  line-height: 1;
 }
 
 .nav-btn:hover {
-  color: #1e293b;
+  color: #d1d5db;
+  background-color: rgba(75, 85, 99, 0.5);
 }
 
 .nav-btn.active {
-  color: #059669;
-  border-bottom-color: #059669;
+  color: #4ade80;
+  border-bottom-color: #4ade80;
+  background-color: rgba(74, 222, 128, 0.1);
 }
 
 /* Tab Content */
@@ -70,7 +90,7 @@ body {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background-color: #f8fafc;
+  background-color: #111827;
 }
 
 .tab-content.active {
@@ -88,7 +108,7 @@ body {
 .section-header h2 {
   font-size: 16px;
   font-weight: 600;
-  color: #1e293b;
+  color: #f3f4f6;
 }
 
 /* Streak Section */
@@ -98,11 +118,11 @@ body {
 
 .longest-streak {
   font-size: 14px;
-  color: #64748b;
+  color: #9ca3af;
 }
 
 #longest-count {
-  color: #1e293b;
+  color: #f3f4f6;
   font-weight: 500;
 }
 
@@ -124,16 +144,16 @@ body {
   justify-content: center;
   font-size: 14px;
   font-weight: 500;
-  background-color: #e2e8f0;
-  color: #64748b;
+  background-color: #374151;
+  color: #9ca3af;
   transition: all 0.2s;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #4b5563;
 }
 
 .calendar-day.completed {
-  background-color: #059669;
+  background-color: #10b981;
   color: #ffffff;
-  border-color: #047857;
+  border-color: #059669;
 }
 
 .calendar-day.violated {
@@ -143,9 +163,9 @@ body {
 }
 
 .calendar-day.current {
-  border: 2px solid #3b82f6;
-  background-color: #dbeafe;
-  color: #1d4ed8;
+  border: 2px solid #60a5fa;
+  background-color: #1e3a8a;
+  color: #93c5fd;
 }
 
 /* Current Streak */
@@ -157,19 +177,19 @@ body {
 .streak-number {
   font-size: 48px;
   font-weight: 700;
-  color: #059669;
+  color: #10b981;
   line-height: 1;
 }
 
 .streak-label {
   font-size: 16px;
-  color: #1e293b;
+  color: #f3f4f6;
   margin-left: 8px;
 }
 
 .streak-sublabel {
   font-size: 12px;
-  color: #64748b;
+  color: #9ca3af;
   font-weight: 500;
   letter-spacing: 1px;
   margin-top: 4px;
@@ -179,7 +199,7 @@ body {
 .checkin-section h2 {
   font-size: 16px;
   margin-bottom: 16px;
-  color: #1e293b;
+  color: #f3f4f6;
 }
 
 .checkin-buttons {
@@ -203,15 +223,15 @@ body {
 }
 
 .checkin-btn.success {
-  background-color: #059669;
+  background-color: #10b981;
   color: #ffffff;
-  border-color: #047857;
+  border-color: #059669;
 }
 
 .checkin-btn.success:hover {
-  background-color: #047857;
+  background-color: #059669;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .checkin-btn.danger {
