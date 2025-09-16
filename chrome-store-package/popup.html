@@ -19,6 +19,7 @@
       <button class="nav-btn" data-tab="rules">Rules</button>
       <button class="nav-btn" data-tab="habits">Habits</button>
       <button class="nav-btn" data-tab="resources">Resources</button>
+      <button class="nav-btn" data-tab="settings">Settings</button>
     </nav>
 
     <!-- Dashboard Tab -->
@@ -188,9 +189,65 @@
       <!-- Affiliate Disclosure -->
       <div class="affiliate-notice">
         <p class="disclaimer">
-          💡 <strong>Disclosure:</strong> This extension contains affiliate links. We may earn a commission when you sign up through our links at no extra cost to you. We only recommend services we believe will help your trading success.
+          💡 <strong>Affiliate Disclosure:</strong> This extension contains affiliate partner links that generate commissions when you sign up through them at no extra cost to you. We track clicks on these links for analytics purposes (stored locally only). You can disable tracking in Settings. We only recommend services we believe will help your trading success.
+        </p>
+        <p class="privacy-link">
+          <a href="#" id="privacy-policy-link">View Privacy Policy</a> •
+          <a href="#" id="settings-link">Settings & Privacy</a>
         </p>
       </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div id="settings" class="tab-content">
+      <div class="section-header">
+        <h2>Settings & Privacy</h2>
+      </div>
+
+      <!-- Privacy Settings -->
+      <section class="settings-section">
+        <h3>Privacy Settings</h3>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <label class="setting-label">Analytics Tracking</label>
+            <p class="setting-description">Allow tracking of affiliate link clicks for internal analytics (stored locally only)</p>
+          </div>
+          <div class="setting-control">
+            <input type="checkbox" id="analytics-enabled" class="setting-checkbox" checked>
+            <label for="analytics-enabled" class="checkbox-label"></label>
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <label class="setting-label">Chrome Sync</label>
+            <p class="setting-description">Extension data syncs across your Chrome browsers (managed by Chrome)</p>
+          </div>
+          <div class="setting-control">
+            <span class="setting-status">Managed by Chrome Settings</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Management -->
+      <section class="settings-section">
+        <h3>Data Management</h3>
+
+        <div class="data-actions">
+          <button class="action-btn secondary" id="clear-analytics">Clear Analytics Data</button>
+          <button class="action-btn danger" id="clear-all-data">Clear All Extension Data</button>
+        </div>
+      </section>
+
+      <!-- Privacy Policy -->
+      <section class="settings-section">
+        <h3>Privacy & Legal</h3>
+        <div class="legal-links">
+          <a href="#" id="view-privacy-policy" class="legal-link">📄 View Privacy Policy</a>
+          <p class="version-info">Extension Version: 1.0.0</p>
+        </div>
+      </section>
     </div>
   </div>
 

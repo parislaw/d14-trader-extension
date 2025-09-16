@@ -34,3 +34,19 @@ key.pem
 # Temporary files
 tmp/
 temp/
+
+# Development and sensitive files
+.claude/
+.mcp.json
+CLAUDE.md
+todo.md
+Monetization ideas/
+
+# Test and development artifacts
+*.zip
+*.html
+test-*.txt
+test-*.html
+*-summary.html
+affiliate-links-implementation-summary.html
+enhanced-crud-functionality-summary.html

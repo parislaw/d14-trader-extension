@@ -15,7 +15,11 @@ class PropTraderApp {
       { id: 'habit-2', text: 'Daily Profiler 4 Steps', completed: false },
       { id: 'habit-3', text: 'Make Trading Ideas for day', completed: false }
     ];
-    
+    this.settings = {
+      analyticsEnabled: true, // Default to enabled
+      privacyConsent: false
+    };
+
     this.init();
   }
 
@@ -27,6 +31,7 @@ class PropTraderApp {
     this.updateStreakDisplay();
     this.renderRules();
     this.renderHabits();
+    this.renderSettings();
     this.checkDailyReset();
   }
 
@@ -34,7 +39,7 @@ class PropTraderApp {
   async loadData() {
     try {
       const result = await chrome.storage.sync.get([
-        'streakData', 'rules', 'habits'
+        'streakData', 'rules', 'habits', 'settings'
       ]);
       
       if (result.streakData) {
@@ -48,6 +53,10 @@ class PropTraderApp {
       if (result.habits) {
         this.habits = result.habits;
       }
+
+      if (result.settings) {
+        this.settings = { ...this.settings, ...result.settings };
+      }
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -58,7 +67,8 @@ class PropTraderApp {
       await chrome.storage.sync.set({
         streakData: this.streakData,
         rules: this.rules,
-        habits: this.habits
+        habits: this.habits,
+        settings: this.settings
       });
     } catch (error) {
       console.error('Error saving data:', error);
@@ -140,6 +150,9 @@ class PropTraderApp {
 
     // Resources tab functionality
     this.setupResourceEventListeners();
+
+    // Settings tab functionality
+    this.setupSettingsEventListeners();
   }
 
   // Streak Management
@@ -717,6 +730,11 @@ class PropTraderApp {
   }
 
   trackResourceClick(category, resourceName) {
+    // Only track if analytics is enabled
+    if (!this.settings.analyticsEnabled) {
+      return;
+    }
+
     // Track click events for analytics
     const clickData = {
       timestamp: new Date().toISOString(),
@@ -762,6 +780,107 @@ class PropTraderApp {
     });
 
     return analytics;
+  }
+
+  // Settings Management
+  setupSettingsEventListeners() {
+    // Analytics toggle
+    const analyticsToggle = document.getElementById('analytics-enabled');
+    if (analyticsToggle) {
+      analyticsToggle.addEventListener('change', async () => {
+        this.settings.analyticsEnabled = analyticsToggle.checked;
+        await this.saveData();
+      });
+    }
+
+    // Clear analytics data
+    const clearAnalyticsBtn = document.getElementById('clear-analytics');
+    if (clearAnalyticsBtn) {
+      clearAnalyticsBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to clear all analytics data?')) {
+          localStorage.removeItem('resourceClicks');
+          alert('Analytics data cleared successfully.');
+        }
+      });
+    }
+
+    // Clear all data
+    const clearAllDataBtn = document.getElementById('clear-all-data');
+    if (clearAllDataBtn) {
+      clearAllDataBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to clear ALL extension data? This cannot be undone.')) {
+          this.clearAllExtensionData();
+        }
+      });
+    }
+
+    // Privacy policy links
+    const privacyPolicyLinks = document.querySelectorAll('#privacy-policy-link, #view-privacy-policy');
+    privacyPolicyLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.openPrivacyPolicy();
+      });
+    });
+
+    // Settings navigation link
+    const settingsLink = document.getElementById('settings-link');
+    if (settingsLink) {
+      settingsLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.switchToTab('settings');
+      });
+    }
+  }
+
+  renderSettings() {
+    // Update analytics toggle state
+    const analyticsToggle = document.getElementById('analytics-enabled');
+    if (analyticsToggle) {
+      analyticsToggle.checked = this.settings.analyticsEnabled;
+    }
+  }
+
+  switchToTab(tabName) {
+    // Update active nav button
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.tab === tabName) {
+        btn.classList.add('active');
+      }
+    });
+
+    // Update active tab content
+    document.querySelectorAll('.tab-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    document.getElementById(tabName).classList.add('active');
+
+    this.currentTab = tabName;
+  }
+
+  async clearAllExtensionData() {
+    try {
+      // Clear Chrome storage
+      await chrome.storage.sync.clear();
+
+      // Clear local storage analytics data
+      localStorage.removeItem('resourceClicks');
+      localStorage.removeItem('lastDailyReset');
+
+      alert('All extension data has been cleared. The extension will reload with default settings.');
+
+      // Reload the popup to show default state
+      location.reload();
+    } catch (error) {
+      console.error('Error clearing extension data:', error);
+      alert('Error clearing data. Please try again.');
+    }
+  }
+
+  openPrivacyPolicy() {
+    const privacyPolicyUrl = 'https://raw.githubusercontent.com/parislaw/d14-trader-extension/main/PRIVACY_POLICY.md';
+    window.open(privacyPolicyUrl, '_blank');
   }
 }
 
