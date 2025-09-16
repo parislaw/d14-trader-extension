@@ -81,7 +81,6 @@ The use of information received from Google APIs will adhere to the Chrome Web S
 We only request the minimum permissions necessary for the extension's core functionality:
 - Storage: For local data persistence
 - Alarms: For daily habit reset functionality
-- Tabs: Exclusively for opening affiliate links
 
 ## Updates to This Policy
 
