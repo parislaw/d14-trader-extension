@@ -77,6 +77,8 @@ The extension includes optional analytics features:
 - You can delete all extension data by removing the extension
 - You can manually clear stored data through Chrome's extension settings
 - You can disable or modify any extension features at any time
+- **Analytics Control**: You can disable affiliate link click tracking in extension settings
+- **Data Deletion**: Analytics data can be cleared independently of other extension data
 
 ### Chrome Sync
 - If Chrome Sync is enabled, your extension data may sync across your Chrome browsers
