@@ -725,8 +725,8 @@ body {
 }
 
 .resource-card:hover {
-  border-color: #059669;
-  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
   transform: translateY(-1px);
 }
 
@@ -745,7 +745,7 @@ body {
 .resource-name {
   font-size: 15px;
   font-weight: 600;
-  color: #1e293b;
+  color: #f3f4f6;
 }
 
 .deal-badge {
@@ -769,7 +769,7 @@ body {
 
 .resource-description {
   font-size: 13px;
-  color: #64748b;
+  color: #9ca3af;
   line-height: 1.4;
 }
 
@@ -781,26 +781,26 @@ body {
 
 .feature {
   font-size: 12px;
-  color: #64748b;
+  color: #9ca3af;
 }
 
 .affiliate-notice {
   margin-top: 24px;
   padding: 16px;
-  background-color: #fffbeb;
-  border: 1px solid #fed7aa;
+  background-color: #292524;
+  border: 1px solid #57534e;
   border-radius: 8px;
 }
 
 .disclaimer {
   font-size: 12px;
-  color: #92400e;
+  color: #fcd34d;
   line-height: 1.4;
   margin: 0;
 }
 
 .disclaimer strong {
-  color: #78350f;
+  color: #f59e0b;
 }
 
 /* Utility Classes */
@@ -814,16 +814,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #374151;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #6b7280;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #9ca3af;
 }
 
 /* Settings Tab Styles */
