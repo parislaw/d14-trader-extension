@@ -257,7 +257,7 @@ body {
 .empty-state {
   text-align: center;
   padding: 40px 20px;
-  color: #64748b;
+  color: #9ca3af;
 }
 
 .empty-subtitle {
@@ -270,15 +270,15 @@ body {
 }
 
 .rule-item {
-  background-color: #ffffff;
+  background-color: #374151;
   padding: 12px 16px;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #4b5563;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
   cursor: grab;
 }
@@ -290,8 +290,8 @@ body {
 }
 
 .rule-item.drag-over {
-  border-color: #059669;
-  background-color: #f0fdf4;
+  border-color: #10b981;
+  background-color: #064e3b;
 }
 
 .rule-item:active {
@@ -301,16 +301,16 @@ body {
 .rule-text {
   flex: 1;
   font-size: 14px;
-  color: #1e293b;
+  color: #f3f4f6;
   margin-left: 8px;
 }
 
 .rule-edit-input {
   flex: 1;
   font-size: 14px;
-  color: #1e293b;
-  background-color: #f8fafc;
-  border: 2px solid #059669;
+  color: #f3f4f6;
+  background-color: #1f2937;
+  border: 2px solid #10b981;
   border-radius: 4px;
   padding: 4px 8px;
   margin-left: 8px;
@@ -318,8 +318,8 @@ body {
 }
 
 .rule-edit-input:focus {
-  border-color: #047857;
-  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 .drag-handle {
@@ -380,11 +380,11 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  background-color: #ffffff;
+  background-color: #374151;
   border-radius: 8px;
   margin-bottom: 8px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #4b5563;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
   cursor: grab;
 }
@@ -396,8 +396,8 @@ body {
 }
 
 .habit-item.drag-over {
-  border-color: #059669;
-  background-color: #f0fdf4;
+  border-color: #10b981;
+  background-color: #064e3b;
 }
 
 .habit-item:active {
@@ -407,16 +407,16 @@ body {
 .habit-text {
   flex: 1;
   font-size: 14px;
-  color: #1e293b;
+  color: #f3f4f6;
   margin-left: 8px;
 }
 
 .habit-edit-input {
   flex: 1;
   font-size: 14px;
-  color: #1e293b;
-  background-color: #f8fafc;
-  border: 2px solid #059669;
+  color: #f3f4f6;
+  background-color: #1f2937;
+  border: 2px solid #10b981;
   border-radius: 4px;
   padding: 4px 8px;
   margin-left: 8px;
@@ -424,8 +424,8 @@ body {
 }
 
 .habit-edit-input:focus {
-  border-color: #047857;
-  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 .habit-actions {
@@ -475,19 +475,19 @@ body {
   width: 18px;
   height: 18px;
   margin-right: 12px;
-  accent-color: #059669;
+  accent-color: #10b981;
 }
 
 .habit-item label {
   flex: 1;
   font-size: 14px;
-  color: #1e293b;
+  color: #f3f4f6;
   cursor: pointer;
 }
 
 /* Buttons */
 .add-btn, .template-btn {
-  background-color: #059669;
+  background-color: #10b981;
   color: #ffffff;
   border: none;
   padding: 8px 16px;
@@ -496,13 +496,13 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .add-btn:hover, .template-btn:hover:not(.disabled) {
-  background-color: #047857;
+  background-color: #059669;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .template-btn.disabled,
