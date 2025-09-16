@@ -710,11 +710,9 @@ class PropTraderApp {
       this.trackResourceClick(category, resourceName);
 
       // Open the affiliate link in a new tab
-      chrome.tabs.create({ url: url });
+      window.open(url, '_blank');
     } catch (error) {
       console.error('Error opening resource link:', error);
-      // Fallback: try to open with window.open
-      window.open(url, '_blank');
     }
   }
 
