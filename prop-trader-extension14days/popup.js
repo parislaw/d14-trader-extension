@@ -67,7 +67,8 @@ class PropTraderApp {
       await chrome.storage.sync.set({
         streakData: this.streakData,
         rules: this.rules,
-        habits: this.habits
+        habits: this.habits,
+        settings: this.settings
       });
     } catch (error) {
       console.error('Error saving data:', error);
