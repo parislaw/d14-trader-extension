@@ -39,7 +39,7 @@ class PropTraderApp {
   async loadData() {
     try {
       const result = await chrome.storage.sync.get([
-        'streakData', 'rules', 'habits'
+        'streakData', 'rules', 'habits', 'settings'
       ]);
       
       if (result.streakData) {
