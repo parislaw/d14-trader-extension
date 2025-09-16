@@ -15,7 +15,11 @@ class PropTraderApp {
       { id: 'habit-2', text: 'Daily Profiler 4 Steps', completed: false },
       { id: 'habit-3', text: 'Make Trading Ideas for day', completed: false }
     ];
-    
+    this.settings = {
+      analyticsEnabled: true, // Default to enabled
+      privacyConsent: false
+    };
+
     this.init();
   }
 
